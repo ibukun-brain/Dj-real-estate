@@ -9,6 +9,9 @@
     $(document).ready(function(){
         let url = $("a[href='{{request.path}}']");
         $(url).addClass("active");
-      
+        
+        $(".alert").delay(10000).slideUp(200, function () {
+          $(this).alert('close');
+        });
       }) 
 </script>

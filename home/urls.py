@@ -7,11 +7,16 @@ urlpatterns = [
     path(
         "",
         view=home_views.IndexView.as_view(),
-        name="index" ,
+        name="index",
     ),
     path(
         "about-us/",
         view=home_views.AboutView.as_view(),
-        name="about" ,
+        name="about",
+    ),
+    path(
+        "search/",
+        view=home_views.SearchView.as_view(),
+        name="search",
     )
 ]

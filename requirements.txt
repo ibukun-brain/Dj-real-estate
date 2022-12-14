@@ -11,6 +11,7 @@ django-auto-prefetch==1.1.0
 django-debug-toolbar==3.2.4
 idna==3.4
 oauthlib==3.2.2
+Pillow==9.3.0
 psycopg2-binary==2.9.3
 pycparser==2.21
 PyJWT==2.6.0

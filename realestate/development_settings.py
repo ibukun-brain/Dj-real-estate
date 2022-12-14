@@ -19,7 +19,7 @@ DATABASES["default"] = dj_database_url.parse(
 DISABLE_SERVER_SIDE_CURSORS = True
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = BASE_DIR / 'realestate/media'
 
 INSTALLED_APPS += [
     "debug_toolbar",

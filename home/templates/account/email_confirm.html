@@ -1,0 +1,51 @@
+{% extends "partials/_base.html" %}
+
+{% load i18n static %}
+{% load account socialaccount %}
+
+{% block title %}{% trans "Confirm E-mail Address" %}{% endblock %}
+
+{% block body %}
+<section class="pt-0 pt-lg-5 position-relative overflow-hidden my-auto">
+
+  <div class="container position-relative">
+    <div class="row g-5 align-items-center justify-content-center">
+      <div class="col-lg-5">
+        <!-- Title -->
+        <h1 class="mt-4 mt-lg-0">{% trans "Confirm E-mail Address" %}</h1>
+        <!-- info -->
+        {% if confirmation %}
+
+        {% user_display confirmation.email_address.user as user_display %}
+
+        <p class="text-center text-secondary">{% blocktrans with confirmation.email_address.email as email %}Please confirm the email address: <a href="mailto:{{ email }}">{{ email }}</a>.{% endblocktrans %}</p>
+
+        <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+          {% include "partials/_messages.html" %}
+          {% include "partials/_form_errors.html" %}
+
+          <div class="mb-2">
+            <button class="btn btn-lg btn-primary m-1" type="submit">{% trans 'Confirm' %}</button>
+            <a href="{% url 'home:index' %}" class="btn btn-lg btn-secondary m-1">Homepage</a>
+
+          </div>
+        </form>
+
+        {% else %}
+
+        {% url 'account_email' as email_url %}
+        <p class="text-center text-secondary">{% blocktrans %}This e-mail confirmation link expired or is invalid. Please <a href="{{ email_url }}">issue a new e-mail confirmation request</a>.{% endblocktrans %}</p>
+        </p>
+        {% endif %}
+
+      </div>
+
+      <div class="col-lg-7 text-center">
+        <!-- Image -->
+        <img src="{% static 'images/element/25.svg' %}" class="h-300px h-sm-400px h-md-500px h-xl-700px" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock body %}

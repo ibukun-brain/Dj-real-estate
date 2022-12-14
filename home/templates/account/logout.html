@@ -1,0 +1,36 @@
+{% extends "partials/_base.html" %}
+
+{% load i18n static %}
+{% load account socialaccount %}
+
+{% block title %}{% trans "Sign Out" %}{% endblock %}
+
+{% block body %}
+<section class="pt-0 pt-lg-5 position-relative overflow-hidden my-auto" style="min-height: 100vh; height:100%">
+
+  <div class="container position-relative">
+    <div class="row g-5 align-items-center justify-content-center">
+      <div class="col-lg-5">
+        <!-- Title -->
+        <h1 class="mt-4 mt-lg-0">{% trans "Sign Out" %}</h1>
+        <!-- info -->
+        <p class=" text-secondary">{% trans 'Are you sure you want to sign out?' %}</p>
+
+        <form method="post" action="{% url 'account_logout' %}">
+          {% csrf_token %}
+
+          <div>
+          <button type="submit" class="btn btn-success m-1">{% trans 'Sign Out' %}</button>
+          <a href="{% url 'home:index' %}" class="btn btn-primary m-1">Cancel</a>
+          </div>
+        </form>
+      </div>
+
+      <div class="col-lg-7 text-center">
+        <!-- Image -->
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock body %}

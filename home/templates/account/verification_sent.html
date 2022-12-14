@@ -1,0 +1,29 @@
+{% extends "partials/_base.html" %}
+{% load static %}
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
+
+{% block body %}
+<section class="pt-0 pt-lg-5 position-relative overflow-hidden my-auto">
+
+  <div class="container position-relative">
+    <div class="row g-5 align-items-center justify-content-center">
+      <div class="col-lg-5">
+        <!-- Title -->
+        <h1 class="mt-4 mt-lg-0">{% trans "Verify Your E-mail Address" %}</h1>
+        <!-- info -->
+        <p>We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. If you do not see the verification e-mail in your main inbox, check your spam folder. Please contact us if you do not receive the verification e-mail within a few minutes.</p>
+
+        <a href="{% url 'home:index' %}" class="btn btn-primary">Back to Homepage</a>
+      </div>
+
+      <div class="col-lg-7 text-center">
+        <!-- Image -->
+        <img src="{% static 'images/element/contact.svg' %}" class="h-300px h-sm-400px h-md-500px h-xl-700px" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock body %}
