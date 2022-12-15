@@ -1,6 +1,9 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
-from django.views.generic import TemplateView
-from home.models import Realtor
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, FormView
+from home.models import Realtor, Contact
+from home.forms import ContactForm
 from listing.models import Listing
 from realestate.utils.choices import ListingStatus, PriceChoices, BedRoomChoices, StateChoices
 # Create your views here.
@@ -37,6 +40,23 @@ class AboutView(TemplateView):
 
         return context
 
+
+class DashboardView(LoginRequiredMixin, TemplateView):
+    template_name = 'home/dashboard.html'
+
+class ContactView(LoginRequiredMixin, FormView):
+    template_name = 'home/dashboard.html'
+    model = Contact
+    form_class = ContactForm
+
+    def get_form(self, form, kwargs):
+        request = self.request
+        if request.user.is_authenicated():
+            pass
+
+    def form_valid(self, form):
+
+        return redirect(reverse_lazy('home:dashboard'))
 
 class SearchView(TemplateView):
     template_name = 'home/search.html'

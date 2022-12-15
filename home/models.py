@@ -55,6 +55,7 @@ class CustomUser(TimeBasedModel, AbstractUser):
     @property
     def is_realtor(self):
         return hasattrs(self, "realtor")
+        
     class Meta(auto_prefetch.Model.Meta):
         ordering = ["first_name", "last_name"]
         verbose_name = "user"

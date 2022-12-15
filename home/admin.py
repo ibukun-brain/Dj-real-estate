@@ -61,7 +61,7 @@ class RealtorAdmin(admin.ModelAdmin):
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ['name', 'listing', 'user']
+    list_display = ['name', 'listing']
     # autocomplete_fields = ['user', 'listing']
     search_fields = ['user', 'name', 'email', 'listing']
     list_filter = ['created_at']

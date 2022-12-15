@@ -138,7 +138,7 @@ STATIC_ROOT = BASE_DIR / 'realestate/static_root'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = 'home:index'
+LOGIN_REDIRECT_URL = 'home:dashboard'
 LOGOUT_REDIRECT_URL = reverse_lazy('account_login')
 
 AUTH_USER_MODEL = 'home.CustomUser'
