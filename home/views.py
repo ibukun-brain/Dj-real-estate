@@ -1,12 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, FormView
+from django.views.generic import ListView, TemplateView, FormView
 from home.models import Realtor, Contact
-from home.forms import ContactForm
 from listing.models import Listing
 from realestate.utils.choices import ListingStatus, PriceChoices, BedRoomChoices, StateChoices
 # Create your views here.
+
+
 
 class IndexView(TemplateView):
     template_name = 'home/index.html'
@@ -41,22 +42,19 @@ class AboutView(TemplateView):
         return context
 
 
-class DashboardView(LoginRequiredMixin, TemplateView):
-    template_name = 'home/dashboard.html'
-
-class ContactView(LoginRequiredMixin, FormView):
+class DashboardView(LoginRequiredMixin, ListView):
     template_name = 'home/dashboard.html'
     model = Contact
-    form_class = ContactForm
+    context_object_name = 'contacts'
+    paginate_by = 9
 
-    def get_form(self, form, kwargs):
-        request = self.request
-        if request.user.is_authenicated():
-            pass
+    def get_queryset(self):
+        queryset = Contact.objects.order_by('created_at') \
+            .filter(user=self.request.user)
 
-    def form_valid(self, form):
 
-        return redirect(reverse_lazy('home:dashboard'))
+        return queryset
+
 
 class SearchView(TemplateView):
     template_name = 'home/search.html'
@@ -92,7 +90,6 @@ class SearchView(TemplateView):
         if is_validparam(price):
             listings = listings.filter(price__lte=price)
     
-        print(BedRoomChoices.choices)
 
         context.update({
         'listings':listings,

@@ -21,16 +21,18 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="index.html">Home</a>
+            <a href="{% url 'home:index' %}">Home</a>
           </li>
           <li class="breadcrumb-item">
-            <a href="listings.html">Listings</a>
+            <a href="{% url 'listing:listing-list' %}">Listings</a>
           </li>
           <li class="breadcrumb-item active">{{listing.title}}</li>
         </ol>
       </nav>
     </div>
   </section>
+
+  {% include 'partials/_messages.html' %}
 
   <!-- Listing -->
   <section id="listing" class="py-4">
@@ -167,26 +169,27 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="{% url 'home:contact' %}" method="POST">
+          <form action="" method="POST">
+            {% include 'partials/_form_errors.html' %}
             <div class="form-group">
-              <label for="property_name" class="col-form-label">Property:</label>
-              <input type="text" name="listing" class="form-control" value="45 Drivewood Cirlce" disabled>
+              <label for="{{form.listing.id_for_label}}" class="col-form-label">{{form.listing.label}}:</label>
+              {{form.listing}}
             </div>
             <div class="form-group">
-              <label for="name" class="col-form-label">Name:</label>
-              <input type="text" name="name" class="form-control" required>
+              <label for="{{form.name.id_for_label}}" class="col-form-label">{{form.name.label}}:</label>
+              {{form.name}}
             </div>
             <div class="form-group">
-              <label for="email" class="col-form-label">Email:</label>
-              <input type="email" name="email" class="form-control" required>
+              <label for="{{form.email.id_for_label}}" class="col-form-label">{{form.email.label}}:</label>
+              {{form.email}}
             </div>
             <div class="form-group">
-              <label for="phone" class="col-form-label">Phone:</label>
-              <input type="text" name="phone" class="form-control">
+              <label for="{{form.phone.id_for_label}}" class="col-form-label">{{form.phone.label}}:</label>
+              {{form.phone}}
             </div>
             <div class="form-group">
-              <label for="message" class="col-form-label">Message:</label>
-              <textarea name="message" class="form-control"></textarea>
+              <label for="{{form.message.id_for_label}}" class="col-form-label">{{form.message.label}}:</label>
+              {{form.message}}
             </div>
             <hr>
             <input type="submit" value="Send" class="btn btn-block btn-secondary">

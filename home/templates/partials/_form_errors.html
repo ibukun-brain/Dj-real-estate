@@ -12,12 +12,12 @@
       class="alert alert-danger alert-dismissible text-center">
       {% for field in form %}
       {% for error in field.errors %}
-      <span class="text-sm"><i class="fa fa-times"></i>&nbsp;&nbsp;{{ field.label }}: {{ error|escape }}</span><br>
+      <span class="text-sm"><i class="fa fa-times"></i>&nbsp;&nbsp;<strong>{{ field.label }}</strong>: {{ error|escape }}</span><br>
       {% endfor %}
       {% endfor %}
 
       {% for error in form.non_field_errors %}
-      <i class="text-sm">{{ error|escape }}</i><br>
+      <i class="text-sm"><strong>{{ error|escape }}</strong></i><br>
       {% endfor %}
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</span></button>
     </div>

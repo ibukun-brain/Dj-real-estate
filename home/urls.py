@@ -20,11 +20,6 @@ urlpatterns = [
         name="dashboard",
     ),
     path(
-        "contact/",
-        view=home_views.ContactView.as_view(),
-        name="contact",
-    ),
-    path(
         "search/",
         view=home_views.SearchView.as_view(),
         name="search",

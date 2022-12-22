@@ -3,6 +3,8 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 
+from listing.models import Listing
+
 from realestate.utils.models import TimeBasedModel
 from realestate.utils.choices import Gender
 from realestate.utils.media import get_image_upload_path
@@ -49,12 +51,15 @@ class CustomUser(TimeBasedModel, AbstractUser):
     EMAIL_FIELD = "email"
     REQUIRED_FIELDS = ["email"]
 
+    email = models.EmailField(max_length=255, unique=True)
+    phone = models.CharField(max_length=15, null=True, blank=True)
+
 
     objects = UserManager()
 
     @property
     def is_realtor(self):
-        return hasattrs(self, "realtor")
+        return hasattr(self, "realtor")
         
     class Meta(auto_prefetch.Model.Meta):
         ordering = ["first_name", "last_name"]
@@ -66,7 +71,6 @@ class CustomUser(TimeBasedModel, AbstractUser):
 class Realtor(TimeBasedModel):
     user = auto_prefetch.OneToOneField("home.CustomUser", on_delete=models.CASCADE)
     about = models.TextField(max_length=500, null=True, blank=True)
-    phone = models.CharField(max_length=15, null=True, blank=True)
     gender = models.CharField(
         max_length=15, choices=Gender.choices
     )
@@ -92,13 +96,17 @@ class Realtor(TimeBasedModel):
 
 
 class Contact(TimeBasedModel):
-    # user = auto_prefetch.ForeignKey(
-    #     CustomUser,
-    #     on_delete=models.SET_NULL,
-    #     null=True,
-    #     blank = True
-    # )
-    listing = models.CharField(max_length=100)
+    user = auto_prefetch.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        null=True,
+        blank = True
+    )
+    listing = auto_prefetch.ForeignKey(
+        Listing,
+        on_delete=models.CASCADE,
+        null=True
+    )
     name = models.CharField(max_length=50)
     email = models.EmailField(max_length=50)
     phone = models.CharField(max_length=15)
@@ -106,4 +114,4 @@ class Contact(TimeBasedModel):
 
 
     def __str__(self):
-        return self.listing
+        return self.listing.title

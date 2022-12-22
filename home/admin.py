@@ -18,6 +18,7 @@ class CustomUserAdmin(UserAdmin):
                     "first_name",
                     "last_name",
                     "email", 
+                    "phone",
                 )
             },
         ),
@@ -62,9 +63,9 @@ class RealtorAdmin(admin.ModelAdmin):
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
     list_display = ['name', 'listing']
-    # autocomplete_fields = ['user', 'listing']
+    autocomplete_fields = ['listing','user']
     search_fields = ['user', 'name', 'email', 'listing']
     list_filter = ['created_at']
     date_heirarchy = 'created_at'
-    read_only = ['listing']
+    # readonly_fields = ['listing']
 
